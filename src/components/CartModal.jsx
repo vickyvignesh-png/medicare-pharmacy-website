@@ -1,4 +1,5 @@
 import React from 'react';
+import { formatCurrencyINR } from '../utils/formatCurrency';
 
 /**
  * CartModal Component
@@ -85,7 +86,7 @@ function CartModal({
                   </h4>
                   <p className="text-[11px] text-slate-500">{item.category}</p>
                   <p className="text-xs font-bold text-brand-navy-800 mt-1">
-                    ${Number(item.price).toFixed(2)} each
+                    {formatCurrencyINR(item.price)} each
                   </p>
                 </div>
 
@@ -134,7 +135,7 @@ function CartModal({
           <div className="p-5 border-t border-slate-200 bg-slate-50 space-y-3">
             <div className="flex justify-between text-xs text-slate-600">
               <span>Subtotal</span>
-              <span className="font-semibold text-slate-800">${subtotal.toFixed(2)}</span>
+              <span className="font-semibold text-slate-800">{formatCurrencyINR(subtotal)}</span>
             </div>
             <div className="flex justify-between text-xs text-slate-600">
               <span>Estimated Shipping</span>
@@ -142,7 +143,7 @@ function CartModal({
             </div>
             <div className="flex justify-between text-sm font-bold text-brand-navy-900 pt-2 border-t border-slate-200">
               <span>Total</span>
-              <span>${subtotal.toFixed(2)}</span>
+              <span>{formatCurrencyINR(subtotal)}</span>
             </div>
 
             <button

@@ -15,6 +15,7 @@ function ProductSection({
   selectedCategory,
   onSelectCategory,
   searchQuery,
+  onSearchChange,
   onClearSearch,
   onAddToCart,
   onRetry,
@@ -24,7 +25,7 @@ function ProductSection({
       <div className="medicare-container">
         
         {/* Section Header */}
-        <div className="max-w-2xl mx-auto text-center mb-10">
+        <div className="max-w-2xl mx-auto text-center mb-8">
           <span className="text-xs font-bold tracking-wider text-brand-green-700 uppercase bg-brand-green-50 px-3 py-1 rounded-full border border-brand-green-200">
             Pharmacy Catalog
           </span>
@@ -36,32 +37,77 @@ function ProductSection({
           </p>
         </div>
 
-        {/* Category Filter Pills */}
-        <div className="flex items-center justify-start sm:justify-center gap-2 overflow-x-auto pb-4 mb-8 medicare-scrollbar no-scrollbar">
-          {CATEGORIES.map((category) => {
-            const isActive = selectedCategory === category;
-            return (
-              <button
-                key={category}
-                type="button"
-                onClick={() => onSelectCategory(category)}
-                aria-pressed={isActive}
-                className={`whitespace-nowrap px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-brand-green-500 ${
-                  isActive
-                    ? 'bg-brand-navy-700 text-white shadow-sm'
-                    : 'bg-white text-slate-600 hover:bg-slate-100 hover:text-slate-900 border border-slate-200'
-                }`}
+        {/* Product Catalog Controls: Search Bar & Category Dropdown */}
+        <div className="mb-8 max-w-3xl mx-auto w-full">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 bg-white p-2 sm:p-2.5 rounded-2xl border border-slate-200 shadow-sm">
+            
+            {/* Search Input */}
+            <div className="relative flex-1">
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => onSearchChange(e.target.value)}
+                placeholder="Search products by name, category or description..."
+                aria-label="Search pharmacy products"
+                className="w-full pl-10 pr-9 py-2.5 text-sm bg-slate-50 hover:bg-slate-100/70 focus:bg-white border border-slate-200 focus:border-brand-green-500 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-green-500/20 transition-all text-slate-800 placeholder:text-slate-400"
+              />
+              <svg
+                className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
               >
-                {category}
-              </button>
-            );
-          })}
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
+              {searchQuery && (
+                <button
+                  type="button"
+                  onClick={onClearSearch}
+                  aria-label="Clear search input"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1 text-xs rounded-full hover:bg-slate-200 transition-colors"
+                >
+                  ✕
+                </button>
+              )}
+            </div>
+
+            {/* Category Dropdown Filter */}
+            <div className="relative sm:w-56 shrink-0">
+              <label htmlFor="category-select" className="sr-only">Filter by Category</label>
+              <select
+                id="category-select"
+                value={selectedCategory}
+                onChange={(e) => onSelectCategory(e.target.value)}
+                aria-label="Filter products by category"
+                className="w-full appearance-none bg-slate-50 hover:bg-slate-100/70 focus:bg-white border border-slate-200 focus:border-brand-green-500 rounded-xl py-2.5 pl-3.5 pr-10 text-sm font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-brand-green-500/20 cursor-pointer transition-all"
+              >
+                <option value="All">All Categories</option>
+                {CATEGORIES.filter((c) => c !== 'All').map((category) => (
+                  <option key={category} value={category}>
+                    {category}
+                  </option>
+                ))}
+              </select>
+              {/* Custom Chevron Icon */}
+              <div className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </div>
+            </div>
+
+          </div>
         </div>
 
         {/* Active Search/Filter info indicator */}
         {(searchQuery || selectedCategory !== 'All') && (
-          <div className="mb-6 flex flex-wrap items-center justify-between gap-2 p-3 bg-white rounded-lg border border-slate-200 text-xs sm:text-sm text-slate-600">
-            <div className="flex items-center gap-2">
+          <div className="mb-6 flex flex-wrap items-center justify-between gap-2 p-3 bg-white rounded-lg border border-slate-200 text-xs sm:text-sm text-slate-600 max-w-3xl mx-auto">
+            <div className="flex items-center gap-2 flex-wrap">
               <span>Filtering by:</span>
               {selectedCategory !== 'All' && (
                 <span className="bg-brand-navy-50 text-brand-navy-700 font-medium px-2 py-0.5 rounded border border-brand-navy-100">

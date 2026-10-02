@@ -1,0 +1,18 @@
+/* ProductCard Component Styles */
+.product-card-container {
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.product-card-container:hover {
+  transform: translateY(-2px);
+}
+
+.product-card-image-box {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}

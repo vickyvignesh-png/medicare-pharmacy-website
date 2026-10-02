@@ -8,17 +8,11 @@ import React from 'react';
  */
 function Hero() {
   return (
-    <section id="hero" className="relative bg-gradient-to-b from-brand-navy-50/50 via-white to-slate-50 py-16 sm:py-24 border-b border-slate-200/80">
+    <section id="hero" className="relative bg-gradient-to-b from-brand-navy-50/50 via-white to-slate-50 py-16 sm:py-20 border-b border-slate-200/80">
       <div className="medicare-container">
         
         <div className="max-w-3xl mx-auto text-center">
           
-          {/* Top Pill Badge */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-green-50 border border-brand-green-200 text-brand-green-800 text-xs sm:text-sm font-semibold mb-6">
-            <span className="w-2 h-2 rounded-full bg-brand-green-600 animate-pulse"></span>
-            Trusted Online & Community Pharmacy
-          </div>
-
           {/* Main Hero Heading */}
           <h1 className="hero-heading text-3xl sm:text-4xl lg:text-5xl font-extrabold text-brand-navy-800 tracking-tight mb-4">
             Your Health, <span className="text-brand-green-600">Our Priority</span>

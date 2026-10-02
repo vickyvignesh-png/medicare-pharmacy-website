@@ -1,4 +1,5 @@
 import React from 'react';
+import { formatCurrencyINR } from '../utils/formatCurrency';
 
 /**
  * Helper to render clean SVG-based neutral placeholders for pharmacy categories
@@ -113,7 +114,7 @@ function ProductCard({ product, onAddToCart }) {
           <div>
             <span className="text-[11px] text-slate-400 block font-normal">Price</span>
             <span className="text-base sm:text-lg font-bold text-brand-navy-800">
-              ${Number(price).toFixed(2)}
+              {formatCurrencyINR(price)}
             </span>
           </div>
 
@@ -121,7 +122,7 @@ function ProductCard({ product, onAddToCart }) {
             type="button"
             onClick={() => onAddToCart(product)}
             disabled={!inStock}
-            aria-label={`Add ${name} to Cart for $${Number(price).toFixed(2)}`}
+            aria-label={`Add ${name} to Cart for ${formatCurrencyINR(price)}`}
             className="px-3.5 py-2 bg-brand-green-600 hover:bg-brand-green-700 active:bg-brand-green-800 text-white font-medium text-xs sm:text-sm rounded-lg shadow-xs transition-colors flex items-center gap-1.5 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-brand-green-500"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

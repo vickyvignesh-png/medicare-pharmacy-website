@@ -1,0 +1,12 @@
+/* Footer Component Styles */
+.footer-wrapper {
+  background-color: #001324;
+}
+
+.footer-link {
+  transition: color 0.2s ease-in-out;
+}
+
+.footer-link:hover {
+  color: #00a86b;
+}

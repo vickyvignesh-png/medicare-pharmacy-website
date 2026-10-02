@@ -1,0 +1,9 @@
+/* CartModal Component Styles */
+.cart-modal-backdrop {
+  background-color: rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(4px);
+}
+
+.cart-drawer-body {
+  box-shadow: -4px 0 25px -5px rgba(0, 0, 0, 0.15);
+}

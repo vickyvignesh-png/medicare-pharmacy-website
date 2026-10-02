@@ -1,0 +1,27 @@
+/* Navbar Component Styles */
+.navbar-wrapper {
+  transition: all 0.2s ease-in-out;
+}
+
+.navbar-select {
+  background-image: none;
+}
+
+/* Custom scrollbar for mobile navigation if needed */
+.navbar-mobile-container::-webkit-scrollbar {
+  height: 4px;
+}
+
+.navbar-mobile-container::-webkit-scrollbar-thumb {
+  background-color: #cbd5e1;
+  border-radius: 4px;
+}
+
+@media (max-width: 639px) {
+  .navbar-actions-mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+  }
+}
