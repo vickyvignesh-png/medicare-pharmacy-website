@@ -27,29 +27,28 @@ export async function getProducts() {
       return Array.isArray(data) ? data : (data.products || []);
     } catch (error) {
       console.warn('Backend API connection failed, falling back to sample products:', error.message);
-      // In production/development, gracefully fall back if backend is offline
       return SAMPLE_PRODUCTS;
     }
   }
 
-  // Frontend simulation mode: simulate a short network response (250ms)
+  // Frontend simulation mode: simulate a short network response (200ms)
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve([...SAMPLE_PRODUCTS]);
-    }, 250);
+    }, 200);
   });
 }
 
 /**
- * Fetch a single product by ID
+ * Fetch a single product by ID or Slug
  * 
- * @param {string} id Product identifier
+ * @param {string} idOrSlug Product identifier or slug string
  * @returns {Promise<Object|null>}
  */
-export async function getProductById(id) {
+export async function getProductById(idOrSlug) {
   if (API_BASE_URL) {
     try {
-      const response = await fetch(`${API_BASE_URL}/products/${id}`);
+      const response = await fetch(`${API_BASE_URL}/products/${idOrSlug}`);
       if (!response.ok) throw new Error('Product not found');
       return await response.json();
     } catch (error) {
@@ -57,6 +56,18 @@ export async function getProductById(id) {
     }
   }
 
-  const found = SAMPLE_PRODUCTS.find((item) => item.id === id);
+  const found = SAMPLE_PRODUCTS.find(
+    (item) => item.id === idOrSlug || item.slug === idOrSlug
+  );
   return found || null;
+}
+
+/**
+ * Fetch a single product specifically by slug
+ * 
+ * @param {string} slug Product URL slug
+ * @returns {Promise<Object|null>}
+ */
+export async function getProductBySlug(slug) {
+  return getProductById(slug);
 }

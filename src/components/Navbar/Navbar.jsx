@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { MEDICARE_LOGO_URL } from '../../constants/assets';
 import { CATEGORIES } from '../../data/sampleProducts';
 import './Navbar.css';
@@ -7,11 +8,12 @@ import './Navbar.css';
  * Navbar Component
  * 
  * Features:
- * - Brand logo on the left
- * - Desktop navigation links
- * - Integrated right-side search input & compact category filter dropdown
+ * - Brand logo on the left (links to home)
+ * - Desktop & mobile navigation links
+ * - Integrated search input & compact category filter dropdown
  * - Cart drawer trigger with live item count badge
  * - Responsive mobile search and category filter layout
+ * - Navigates to home if search/filter is interacted with while on a product detail page
  */
 function Navbar({
   cartCount,
@@ -22,6 +24,8 @@ function Navbar({
   onSelectCategory,
 }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen((prev) => !prev);
@@ -29,6 +33,20 @@ function Navbar({
 
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
+  };
+
+  const handleSearchChange = (value) => {
+    onSearchChange(value);
+    if (location.pathname !== '/') {
+      navigate('/');
+    }
+  };
+
+  const handleCategoryChange = (value) => {
+    onSelectCategory(value);
+    if (location.pathname !== '/') {
+      navigate('/');
+    }
   };
 
   return (
@@ -39,8 +57,8 @@ function Navbar({
         <div className="flex items-center justify-between h-20 gap-4">
           
           {/* Logo on the left */}
-          <a
-            href="#"
+          <Link
+            to="/"
             className="flex items-center gap-2 group focus:outline-none focus:ring-2 focus:ring-brand-green-500 rounded-lg p-1 shrink-0"
             aria-label="MediCare+ Pharmacy Home"
           >
@@ -50,28 +68,22 @@ function Navbar({
               className="h-9 sm:h-11 w-auto object-contain transition-transform group-hover:scale-[1.02]"
               loading="eager"
             />
-          </a>
+          </Link>
 
           {/* Desktop Navigation Links */}
           <nav className="hidden lg:flex items-center space-x-6 shrink-0" aria-label="Main Navigation">
-            <a
-              href="#"
+            <Link
+              to="/"
               className="text-sm font-medium text-slate-700 hover:text-brand-green-700 transition-colors focus:outline-none focus:text-brand-green-600"
             >
               Home
-            </a>
-            <a
-              href="#products"
+            </Link>
+            <Link
+              to="/"
               className="text-sm font-medium text-slate-700 hover:text-brand-green-700 transition-colors focus:outline-none focus:text-brand-green-600"
             >
               Products
-            </a>
-            <a
-              href="#products"
-              className="text-sm font-medium text-slate-700 hover:text-brand-green-700 transition-colors focus:outline-none focus:text-brand-green-600"
-            >
-              About
-            </a>
+            </Link>
             <a
               href="#contact"
               className="text-sm font-medium text-slate-700 hover:text-brand-green-700 transition-colors focus:outline-none focus:text-brand-green-600"
@@ -88,8 +100,8 @@ function Navbar({
               <input
                 type="text"
                 value={searchQuery}
-                onChange={(e) => onSearchChange(e.target.value)}
-                placeholder="Search products..."
+                onChange={(e) => handleSearchChange(e.target.value)}
+                placeholder="Search 5 products..."
                 aria-label="Search pharmacy products"
                 className="w-full pl-9 pr-7 py-2 text-xs lg:text-sm bg-slate-50 hover:bg-slate-100/80 focus:bg-white border border-slate-300 rounded-xl focus:border-brand-green-500 focus:outline-none focus:ring-2 focus:ring-brand-green-500/20 transition-all placeholder:text-slate-400 text-slate-800"
               />
@@ -109,7 +121,7 @@ function Navbar({
               {searchQuery && (
                 <button
                   type="button"
-                  onClick={() => onSearchChange('')}
+                  onClick={() => handleSearchChange('')}
                   aria-label="Clear search input"
                   className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-0.5 text-xs rounded-full"
                 >
@@ -124,7 +136,7 @@ function Navbar({
               <select
                 id="nav-category-select"
                 value={selectedCategory}
-                onChange={(e) => onSelectCategory(e.target.value)}
+                onChange={(e) => handleCategoryChange(e.target.value)}
                 aria-label="Filter products by category"
                 className="navbar-select w-full appearance-none bg-slate-50 hover:bg-slate-100/80 focus:bg-white border border-slate-300 rounded-xl py-2 pl-3 pr-8 text-xs lg:text-sm font-medium text-slate-700 focus:outline-none focus:border-brand-green-500 focus:ring-2 focus:ring-brand-green-500/20 cursor-pointer transition-all truncate"
               >
@@ -220,8 +232,8 @@ function Navbar({
               <input
                 type="text"
                 value={searchQuery}
-                onChange={(e) => onSearchChange(e.target.value)}
-                placeholder="Search products..."
+                onChange={(e) => handleSearchChange(e.target.value)}
+                placeholder="Search 5 products..."
                 aria-label="Search pharmacy products"
                 className="w-full pl-9 pr-7 py-2 text-xs bg-slate-50 border border-slate-300 rounded-lg focus:bg-white focus:border-brand-green-500 focus:outline-none focus:ring-1 focus:ring-brand-green-500"
               />
@@ -241,7 +253,7 @@ function Navbar({
               {searchQuery && (
                 <button
                   type="button"
-                  onClick={() => onSearchChange('')}
+                  onClick={() => handleSearchChange('')}
                   aria-label="Clear search"
                   className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 p-0.5 text-xs"
                 >
@@ -256,7 +268,7 @@ function Navbar({
               <select
                 id="nav-category-select-mobile"
                 value={selectedCategory}
-                onChange={(e) => onSelectCategory(e.target.value)}
+                onChange={(e) => handleCategoryChange(e.target.value)}
                 aria-label="Filter products by category"
                 className="navbar-select w-full appearance-none bg-slate-50 border border-slate-300 rounded-lg py-2 pl-3 pr-8 text-xs font-medium text-slate-700 focus:outline-none focus:border-brand-green-500 cursor-pointer"
               >
@@ -280,27 +292,20 @@ function Navbar({
         {/* Mobile Navigation Links Drawer */}
         {isMobileMenuOpen && (
           <div className="md:hidden border-t border-slate-200 py-3 space-y-1 bg-white">
-            <a
-              href="#"
+            <Link
+              to="/"
               onClick={closeMobileMenu}
               className="block px-3 py-2 text-sm font-medium text-slate-700 hover:text-brand-green-700 hover:bg-slate-50 rounded-md"
             >
               Home
-            </a>
-            <a
-              href="#products"
+            </Link>
+            <Link
+              to="/"
               onClick={closeMobileMenu}
               className="block px-3 py-2 text-sm font-medium text-slate-700 hover:text-brand-green-700 hover:bg-slate-50 rounded-md"
             >
               Products
-            </a>
-            <a
-              href="#products"
-              onClick={closeMobileMenu}
-              className="block px-3 py-2 text-sm font-medium text-slate-700 hover:text-brand-green-700 hover:bg-slate-50 rounded-md"
-            >
-              About
-            </a>
+            </Link>
             <a
               href="#contact"
               onClick={closeMobileMenu}

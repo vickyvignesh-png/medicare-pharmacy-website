@@ -1,4 +1,5 @@
 /* ProductGrid Component Styles */
+
 .product-grid-wrapper {
   min-height: 50vh;
 }
@@ -8,27 +9,40 @@
   gap: 1.25rem;
 }
 
+/* Mobile: single column */
 @media (max-width: 639px) {
   .product-grid-layout {
     grid-template-columns: 1fr;
   }
 }
 
+/* Small tablet: 2 columns */
 @media (min-width: 640px) and (max-width: 767px) {
   .product-grid-layout {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
+/* Tablet: 3 columns */
 @media (min-width: 768px) and (max-width: 1023px) {
   .product-grid-layout {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
   }
 }
 
-@media (min-width: 1024px) {
+/* Laptop / Small Desktop: 3-4 columns */
+@media (min-width: 1024px) and (max-width: 1279px) {
   .product-grid-layout {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 1.5rem;
+  }
+}
+
+/* Large Desktop: 5 clean columns for 5 products */
+@media (min-width: 1280px) {
+  .product-grid-layout {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 1.25rem;
   }
 }

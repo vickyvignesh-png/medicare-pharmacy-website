@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { MEDICARE_LOGO_URL, BRAND_TAGLINE } from '../../constants/assets';
 import './Footer.css';
 
@@ -20,14 +21,14 @@ function Footer() {
           
           {/* Column 1: Brand & Tagline */}
           <div className="space-y-3">
-            <a href="#" className="inline-block bg-white p-2 rounded-lg shadow-sm">
+            <Link to="/" className="inline-block bg-white p-2 rounded-lg shadow-sm" aria-label="MediCare+ Home">
               <img
                 src={MEDICARE_LOGO_URL}
                 alt="MediCare+ Pharmacy"
                 className="h-8 w-auto object-contain"
                 loading="lazy"
               />
-            </a>
+            </Link>
             <p className="text-xs text-brand-green-400 font-semibold tracking-wide">
               {BRAND_TAGLINE}
             </p>
@@ -43,17 +44,17 @@ function Footer() {
             </h3>
             <ul className="space-y-2 text-xs">
               <li>
-                <a href="#" className="footer-link text-slate-400">
+                <Link to="/" className="footer-link text-slate-400 hover:text-white transition-colors">
                   Home
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#products" className="footer-link text-slate-400">
+                <Link to="/" className="footer-link text-slate-400 hover:text-white transition-colors">
                   Our Products
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#contact" className="footer-link text-slate-400">
+                <a href="#contact" className="footer-link text-slate-400 hover:text-white transition-colors">
                   Contact & Support
                 </a>
               </li>
